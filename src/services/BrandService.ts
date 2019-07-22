@@ -12,11 +12,6 @@ export class BrandService {
             .then(R.objOf('data'));
     }
 
-    public async findOneById(id: string): Promise<any> {
-        return await this.brandRepository.findById(id)
-            .then(R.objOf('data'));
-    }
-
     public async create(brand: ICreateBrand): Promise<any> {
         return await this.brandRepository.create(brand)
             .then(R.objOf('data'));

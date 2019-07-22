@@ -42,6 +42,8 @@ $ yarn dev
 - `HOST` Host name
 - `PORT` Number of the port that will be listening
 - `SWAGGER_PORT` Number of the port that will be listening
+- `SERVICE_ACCOUNT_KEY` = Firebase admin sdk json
+
 
 **Optional**
 - `LOG_LEVEL` Change what should be logged

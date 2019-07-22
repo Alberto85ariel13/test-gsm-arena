@@ -5,14 +5,8 @@ export const findAll = {
     query: joi.object().keys({}),
 };
 
-export const findOneById = {
-    params: {
-        id: joi.string().required(),
-    },
-};
-
 export const create = {
-    body: joi.object().keys(brand).forbiddenKeys(['id'])
+    body: joi.object().keys(brand)
         .requiredKeys(['name']),
 };
 

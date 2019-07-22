@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+import bsonObjectid from 'bson-objectid';
 import { ICreateDevice, IUpdateDevice, IDeleteDevice } from '../interfaces/IDevice';
 import { logger } from '../utils/logger';
 
@@ -6,33 +8,44 @@ export class DeviceRepository {
     constructor(private readonly db: any) { }
 
     public async findAll(query: object): Promise<any> {
-        logger.info(this.db);
-        logger.info(query);
-
-        return;
-    }
-
-    public async findById(id: string): Promise<any> {
-        logger.info(id);
-
-        return;
+        return this.db.collection('devices').snapshotChanges();
     }
 
     public async create(device: ICreateDevice): Promise<any> {
-        logger.info(device);
+        const id = (new bsonObjectid()).toHexString();
 
-        return;
+        const result = await new Promise<any>((resolve, reject) => {
+            this.db
+                .collection('devices')
+                .doc(device.id || id).set(device)
+                .then(res => resolve(R.mergeRight({ id }, device)), err => reject(err));
+        });
+        logger.info(`Inserted Device ${id}`);
+
+        return result;
     }
 
     public async update(device: IUpdateDevice): Promise<any> {
-        logger.info(device);
+        const result = await new Promise<any>((resolve, reject) => {
+            this.db
+                .collection('devices')
+                .doc(device.id).set(device, { merge: true })
+                .then(res => resolve(device), err => reject(err));
+        });
+        logger.info(`Updated Device ${result.id}`);
 
-        return;
+        return result;
     }
 
     public async delete(device: IDeleteDevice): Promise<any> {
-        logger.info(device);
+        const result = await new Promise<any>((resolve, reject) => {
+            this.db
+                .collection('devices')
+                .doc(device.id).delete()
+                .then(res => resolve({}), err => reject(err));
+        });
+        logger.info(`Removed Device ${device.id}`);
 
-        return;
+        return result;
     }
 }

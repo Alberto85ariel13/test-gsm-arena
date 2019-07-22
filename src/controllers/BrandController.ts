@@ -36,10 +36,4 @@ export class BrandController {
     findAll(@QueryParams() query: any): Promise<IBrand[]> {
         return this.brandService.findAll(query);
     }
-
-    @Get(`/:id`)
-    @UseBefore(bodyParser.json(), celebrate(schemas.findOneById))
-    findOneById(@Param('id') id: string): Promise<IBrand> {
-        return this.brandService.findOneById(id);
-    }
 }

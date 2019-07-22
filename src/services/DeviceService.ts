@@ -12,11 +12,6 @@ export class DeviceService {
             .then(R.objOf('data'));
     }
 
-    public async findOneById(id: string): Promise<any> {
-        return await this.deviceRepository.findById(id)
-            .then(R.objOf('data'));
-    }
-
     public async create(device: ICreateDevice): Promise<any> {
         return await this.deviceRepository.create(device)
             .then(R.objOf('data'));

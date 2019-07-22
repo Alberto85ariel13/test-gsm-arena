@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+import bsonObjectid from 'bson-objectid';
 import { ICreateBrand, IUpdateBrand, IDeleteBrand } from '../interfaces/IBrand';
 import { logger } from '../utils/logger';
 
@@ -6,33 +8,49 @@ export class BrandRepository {
     constructor(private readonly db: any) { }
 
     public async findAll(query: object): Promise<any> {
-        logger.info(this.db);
-        logger.info(query);
 
-        return;
-    }
+        this.db.collection('brands').onSnapshot(data => data.docChanges().forEach((element) => {
+            logger.info(R.toString(element.doc.data()));
+        }));
 
-    public async findById(id: string): Promise<any> {
-        logger.info(id);
-
-        return;
+        return {};
     }
 
     public async create(brand: ICreateBrand): Promise<any> {
-        logger.info(brand);
+        const id = (new bsonObjectid()).toHexString();
 
-        return;
+        const result = await new Promise<any>((resolve, reject) => {
+            this.db
+                .collection('brands')
+                .doc(brand.id || id).set(brand)
+                .then(res => resolve(R.mergeRight({ id }, brand)), err => reject(err));
+        });
+        logger.info(`Inserted Brand ${id}`);
+
+        return result;
     }
 
     public async update(brand: IUpdateBrand): Promise<any> {
-        logger.info(brand);
+        const result = await new Promise<any>((resolve, reject) => {
+            this.db
+                .collection('brands')
+                .doc(brand.id).set(brand, { merge: true })
+                .then(res => resolve(brand), err => reject(err));
+        });
+        logger.info(`Updated Brand ${result.id}`);
 
-        return;
+        return result;
     }
 
     public async delete(brand: IDeleteBrand): Promise<any> {
-        logger.info(brand);
+        const result = await new Promise<any>((resolve, reject) => {
+            this.db
+                .collection('brands')
+                .doc(brand.id).delete()
+                .then(res => resolve({}), err => reject(err));
+        });
+        logger.info(`Removed Brand ${brand.id}`);
 
-        return;
+        return result;
     }
 }

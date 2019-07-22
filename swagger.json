@@ -288,34 +288,6 @@
 					"BrandController"
 				],
 				"parameters": []
-			},
-			"get": {
-				"operationId": "BrandFindOneById",
-				"produces": [
-					"application/json"
-				],
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"schema": {
-							"$ref": "#/definitions/IBrand"
-						}
-					}
-				},
-				"description": "",
-				"summary": "",
-				"tags": [
-					"BrandController"
-				],
-				"parameters": [
-					{
-						"description": "",
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"type": "string"
-					}
-				]
 			}
 		},
 		"/devices/": {
@@ -430,34 +402,6 @@
 					"DeviceController"
 				],
 				"parameters": []
-			},
-			"get": {
-				"operationId": "DeviceFindOneById",
-				"produces": [
-					"application/json"
-				],
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"schema": {
-							"$ref": "#/definitions/IDevice"
-						}
-					}
-				},
-				"description": "",
-				"summary": "",
-				"tags": [
-					"DeviceController"
-				],
-				"parameters": [
-					{
-						"description": "",
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"type": "string"
-					}
-				]
 			}
 		}
 	},

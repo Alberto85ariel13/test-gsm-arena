@@ -7,12 +7,6 @@ export const findAll = {
     }),
 };
 
-export const findOneById = {
-    params: {
-        id: joi.string().required(),
-    },
-};
-
 export const create = {
     body: joi.object().keys(device).forbiddenKeys(['id'])
         .requiredKeys(['name', 'brand', 'model']),

@@ -36,10 +36,4 @@ export class DeviceController {
     findAll(@QueryParams() query: any): Promise<IDevice[]> {
         return this.deviceService.findAll(query);
     }
-
-    @Get(`/:id`)
-    @UseBefore(bodyParser.json(), celebrate(schemas.findOneById))
-    findOneById(@Param('id') id: string): Promise<IDevice> {
-        return this.deviceService.findOneById(id);
-    }
 }
