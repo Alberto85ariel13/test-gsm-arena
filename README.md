@@ -1,4 +1,4 @@
-# Admin Core
+# TEST service
 
 - [Setup](#setup)
 - [Environment Variables](#env)
@@ -44,18 +44,13 @@ $ yarn dev
 
 
 **Required**
-- `BUS_QUEUE_ADAPTER` parameters to Bus / rabbitmq
-- `BUS_QUEUE_URI` parameters to Bus / amqp
 
 - `HOST` Host name
 - `PORT` Number of the port that will be listening
 - `SWAGGER_PORT` Number of the port that will be listening
-- `MONGODB_HOST` hostname in mongo db
-- `MONGODB_DATABASE` database name
 
 **Optional**
 - `LOG_LEVEL` Change what should be logged
-- `LOG_SILENT` - Disable logs
 - `NODE_ENV` - Environment app is deployed on. *(development, beta, production)*
 
 
@@ -63,37 +58,25 @@ $ yarn dev
 
 - **src**
 
-    - **bin** - start domain/denormalizer/view
-    - **denormalizer**
-        - **config** - Bootstrap configurations denormalizer
-        - **handlers** -
-
-    - **domain**
-        - **config** - Bootstrap configurations denormalizer
-        - **entities** -
-        - **handlers** -
-    - **view**
-        - **config** - Bootstrap configurations denormalizer
-        - **controllers** - Available on the container by name with suffix `Controller`
-        - **services** - Available on the container by name with suffix `Service`
-        - **schemas**
-            - **entities**
-            - **requests**
-            - **responses**
-    - **shared**
+    - **bin** - start API
+    - **config** - Bootstrap configurations API
         - **db** - conection to database
-        - **errors** - Classes errors
-        - **events**
-        - **interfaces**
-        - **models** model database
-        - **repositories** - Available on the container by name with suffix `Repository`
-        - **utils** Common functions
+    - **controllers** - Available on the container by name with suffix `Controller`
+    - **repositories** - Available on the container by name with suffix `Repository`
+    - **schemas**
+        - **entities**
+        - **requests**
+        - **responses**
+       
+    - **services** - Available on the container by name with suffix `Service`
+    - **interfaces**
+    - **utils** Common functions
 
 
 ## Test
   - **fixtures** - Data structures and helpers for tests
-  - **functional** - Domain and view
-  - **integration** - Dernomalizer
+  - **functional** - api
+  - **integration** - repository
   - **unit** - Step and Utils tests
   - **utils** - Utilities necessary for test run
 
