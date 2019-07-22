@@ -3,12 +3,23 @@ import bsonObjectid from 'bson-objectid';
 import { ICreateDevice, IUpdateDevice, IDeleteDevice } from '../interfaces/IDevice';
 import { logger } from '../utils/logger';
 
+const createQuery = (collection, query) => {
+    R.keys(query).forEach((element) => {
+        collection.where(element, '==', query[element]);
+    });
+};
+
 export class DeviceRepository {
 
     constructor(private readonly db: any) { }
 
     public async findAll(query: object): Promise<any> {
-        return this.db.collection('devices').snapshotChanges();
+        const queryBuilder = this.db.collection('devices');
+        createQuery(queryBuilder, query);
+        const result = [];
+        await queryBuilder.get().then(snapshot => snapshot.forEach(doc => result.push({ id: doc.id, ...doc.data() })));
+
+        return result;
     }
 
     public async create(device: ICreateDevice): Promise<any> {

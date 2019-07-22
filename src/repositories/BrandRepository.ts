@@ -3,17 +3,23 @@ import bsonObjectid from 'bson-objectid';
 import { ICreateBrand, IUpdateBrand, IDeleteBrand } from '../interfaces/IBrand';
 import { logger } from '../utils/logger';
 
+const createQuery = (collection, query) => {
+    R.keys(query).forEach((element) => {
+        collection.where(element, '==', query[element]);
+    });
+};
+
 export class BrandRepository {
 
     constructor(private readonly db: any) { }
 
     public async findAll(query: object): Promise<any> {
+        const queryBuilder = this.db.collection('brands');
+        createQuery(queryBuilder, query);
+        const result = [];
+        await queryBuilder.get().then(snapshot => snapshot.forEach(doc => result.push({ id: doc.id, ...doc.data() })));
 
-        this.db.collection('brands').onSnapshot(data => data.docChanges().forEach((element) => {
-            logger.info(R.toString(element.doc.data()));
-        }));
-
-        return {};
+        return result;
     }
 
     public async create(brand: ICreateBrand): Promise<any> {
