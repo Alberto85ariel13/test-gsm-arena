@@ -26,12 +26,6 @@ $ yarn
 $ cp .env.example .env
 ```
 
-### Start docker dependencies
-
-```
-$ docker-compose up -d
-```
-
 ### Run the application
 
 ```sh
