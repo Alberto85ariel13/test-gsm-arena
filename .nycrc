@@ -1,0 +1,28 @@
+{
+    "all": true,
+    "cache": false,
+    "check-coverage": true,
+    "lines": 65,
+    "statements": 65,
+    "functions": 40,
+    "branches": 25,
+    "extension": [
+        ".ts",
+        ".tsx"
+    ],
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "tests/**/*.ts",
+        "bin/*.ts"
+    ],
+    "require": [
+        "ts-node/register"
+    ],
+    "reporter": [
+        "lcov",
+        "text",
+        "text-summary"
+    ]
+}
