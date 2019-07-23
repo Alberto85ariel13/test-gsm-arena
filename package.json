@@ -16,7 +16,7 @@
     "lint": "tslint --project tsconfig.json -c tslint.json",
     "lint-fix": "yarn lint --fix",
     "test": "yarn docker-down && yarn docker-build && yarn docker-run && yarn docker-down",
-    "test-all": "yarn test-pre 'tests/**/*.spec.ts' --exit",
+    "test-all": "nyc -r html -r text -r lcovonly --report-dir=test/coverage mocha -r 'tests/index.spec.js' -R mocha-junit-reporter -O mochaFile=./test/test-results.xml 'tests/**/*.spec.ts' --exit",
     "test-ci": "nyc -r html -r text -r lcovonly --report-dir=test/coverage mocha -r 'tests/index.spec.js' -R mocha-junit-reporter -O mochaFile=./test/test-results.xml 'tests/**/*.spec.ts' --exit",
     "test-coverage": "nyc yarn test-all",
     "test-functional": "yarn test-pre 'tests/functional/**/*.spec.ts' --watch-extensions ts --exit",
