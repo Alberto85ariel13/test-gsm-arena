@@ -25,4 +25,4 @@ RUN yarn
 
 EXPOSE 1337
 
-CMD sh scripts/wait.sh && yarn test-ci
+CMD yarn test-ci
