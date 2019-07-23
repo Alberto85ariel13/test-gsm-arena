@@ -1,10 +1,10 @@
 import * as chai from 'chai';
 import * as sinon from 'sinon';
 import * as R from 'ramda';
-import * as responseSchema from '../../src/schemas/responses/device';
+import * as responseSchema from '../../src/schemas/responses/brand';
 import { initServer } from '../../src/config/app';
 import { initDi } from '../../src/config/di';
-import { data } from '../fixtures/device';
+import { data } from '../fixtures/brand';
 // tslint:disable-next-line
 
 const useServer = (context) => {
@@ -21,7 +21,7 @@ const useViewContainer = (context) => {
     });
 };
 
-describe(`api/devices`, () => {
+describe(`api/brand`, () => {
     useServer(this);
     useViewContainer(this);
 
@@ -41,9 +41,9 @@ describe(`api/devices`, () => {
         done();
     });
 
-    it(`GET /devices`, async () => {
+    it(`GET /brands`, async () => {
         const result = await chai.request(this.server)
-            .get(`/devices`)
+            .get(`/brands`)
             .set('content-type', 'application/json')
             .then(R.prop('body'));
         await responseSchema.findAll[200].schema.validate(result);
