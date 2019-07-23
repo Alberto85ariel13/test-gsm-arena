@@ -244,7 +244,7 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
-"@johanblumenberg/ts-mockito@^1.0.9":
+"@johanblumenberg/ts-mockito@1.0.9":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@johanblumenberg/ts-mockito/-/ts-mockito-1.0.9.tgz#b3b025426e7fd7e909090bdaaa1b990b9b3e7916"
   integrity sha512-e7DRzPZdZMeeZHyCC6OQfSG8abXEHIEgoaoHdoJ/Rwu4tKM7lyYOmnB+JLsJ3fp7Dr6YhKKP/f1m1zWCdnGx4g==
@@ -3769,6 +3769,11 @@ mocha@6.0.2:
     yargs "12.0.5"
     yargs-parser "11.1.1"
     yargs-unparser "1.5.0"
+
+mock-cloud-firestore@0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/mock-cloud-firestore/-/mock-cloud-firestore-0.9.3.tgz#806d945260e53ba13dbef220591398b1b5447499"
+  integrity sha512-AHix5HCvwC/FJ78jvUBONC18Klyh5WvG31BpnXr9ogCSPx4qOdgVG1sEFJtdQctDAGXWbBh3Jk6ibI80eVMR+g==
 
 moment@^2.17.1:
   version "2.24.0"
