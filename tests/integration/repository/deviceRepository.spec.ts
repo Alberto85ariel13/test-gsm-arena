@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import { initDi } from '../../../src/config/di';
-import { fixtureData, data } from '../../fixtures/brand';
+import { fixtureData, data } from '../../fixtures/device';
 // tslint:disable-next-line
 import MockFirebase = require('mock-cloud-firestore');
 
@@ -10,35 +10,33 @@ const useViewContainer = (context) => {
     });
 };
 
-describe(`brand integration repository`, function (): void {
+describe(`device integration repository`, function (): void {
     useViewContainer(this);
 
-    it(`brand create`, async () => {
+    it(`device create`, async () => {
         const sandbox = sinon.createSandbox();
         const mockFirebase = new MockFirebase(fixtureData(), { isNaiveSnapshotListenerEnabled: true });
         const db = mockFirebase.firestore();
         sandbox.stub(this['container'].get('db'), 'collection')
-            .withArgs('brands').returns(db.collection('brands'));
-        db.collection('brands')['onSnapshot']((snapshot) => {
+            .withArgs('devices').returns(db.collection('devices'));
+        db.collection('devices')['onSnapshot']((snapshot) => {
             chai.expect(snapshot.docs).to.lengthOf(4);
         });
-        const repository = this['container'].get('brandRepository');
+        const repository = this['container'].get('deviceRepository');
         await repository.create(data.create);
-
         sandbox.reset();
         sandbox.restore();
     });
 
-    it(`brand update`, async () => {
+    it(`device update`, async () => {
         const sandbox = sinon.createSandbox();
         const mockFirebase = new MockFirebase(fixtureData(), { isNaiveSnapshotListenerEnabled: true });
         const db = mockFirebase.firestore();
         sandbox.stub(this['container'].get('db'), 'collection')
-            .withArgs('brands').returns(db.collection('brands'));
-
+            .withArgs('devices').returns(db.collection('devices'));
         const stub = sinon.stub();
-        db.collection('brands')['onSnapshot'](stub);
-        const repository = this['container'].get('brandRepository');
+        db.collection('devices')['onSnapshot'](stub);
+        const repository = this['container'].get('deviceRepository');
         await repository.update(data.update);
         const newUpdate = { id: data.update.id, name: 'newTest' };
         await repository.update(newUpdate);
@@ -48,23 +46,23 @@ describe(`brand integration repository`, function (): void {
                 resolve();
             },         100);
         });
-
         sandbox.reset();
         sandbox.restore();
+
     });
 
-    it(`brand delete`, async () => {
+    it(`device delete`, async () => {
         const sandbox = sinon.createSandbox();
         const mockFirebase = new MockFirebase(fixtureData(), { isNaiveSnapshotListenerEnabled: true });
         const db = mockFirebase.firestore();
         sandbox.stub(this['container'].get('db'), 'collection')
-            .withArgs('brands').returns(db.collection('brands'));
-        db.collection('brands')['onSnapshot']((snapshot) => {
+            .withArgs('devices').returns(db.collection('devices'));
+
+        db.collection('devices')['onSnapshot']((snapshot) => {
             chai.expect(snapshot.docs).to.lengthOf(2);
         });
-        const repository = this['container'].get('brandRepository');
+        const repository = this['container'].get('deviceRepository');
         await repository.delete(data.delete);
-
         sandbox.reset();
         sandbox.restore();
     });
