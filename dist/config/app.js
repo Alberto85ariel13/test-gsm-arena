@@ -11,7 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const routing_controllers_1 = require("routing-controllers");
 const celebrate_1 = require("celebrate");
-const db_1 = require("./db");
 const swagger_1 = require("./swagger");
 const di_1 = require("./di");
 const logger_1 = require("../utils/logger");
@@ -34,7 +33,6 @@ exports.onError = port => (error) => {
     }
 };
 exports.initServer = () => __awaiter(this, void 0, void 0, function* () {
-    yield db_1.initDatabaseConnection();
     const container = yield di_1.initDi();
     routing_controllers_1.useContainer(container);
     const app = routing_controllers_1.createExpressServer({
