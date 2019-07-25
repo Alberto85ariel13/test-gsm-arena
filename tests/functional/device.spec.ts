@@ -4,8 +4,19 @@ import * as R from 'ramda';
 import * as responseSchema from '../../src/schemas/responses/device';
 import { initServer } from '../../src/config/app';
 import { initDi } from '../../src/config/di';
+import * as db from '../../src/config/db';
 import { data } from '../fixtures/device';
 // tslint:disable-next-line
+const useDb = (context) => {
+    const sandbox = sinon.createSandbox();
+    before(async () => {
+        sandbox.stub(db, 'initDatabaseConnection').resolves({ collection: () => { } });
+    });
+    after(async () => {
+        sandbox.reset();
+        sandbox.restore();
+    });
+};
 
 const useServer = (context) => {
     before(async () => {
@@ -22,6 +33,7 @@ const useViewContainer = (context) => {
 };
 
 describe(`api/devices`, () => {
+    useDb(this);
     useServer(this);
     useViewContainer(this);
 

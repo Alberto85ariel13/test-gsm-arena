@@ -2,7 +2,18 @@ import * as sinon from 'sinon';
 import * as responseSchema from '../../../src/schemas/responses/brand';
 import { initDi } from '../../../src/config/di';
 import { data } from '../../fixtures/brand';
+import * as db from '../../../src/config/db';
 
+const useDb = (context) => {
+    const sandbox = sinon.createSandbox();
+    before(async () => {
+        sandbox.stub(db, 'initDatabaseConnection').resolves({ collection: () => { } });
+    });
+    after(async () => {
+        sandbox.reset();
+        sandbox.restore();
+    });
+};
 const useViewContainer = (context) => {
     before(async () => {
         if (context.container) return;
@@ -11,6 +22,7 @@ const useViewContainer = (context) => {
 };
 
 describe(`brand services`, () => {
+    useDb(this);
     useViewContainer(this);
 
     const sandbox = sinon.createSandbox();

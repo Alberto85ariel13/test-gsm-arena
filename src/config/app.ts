@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { errors } from 'celebrate';
-import { initDatabaseConnection } from './db';
 import { register as registerSwagger } from './swagger';
 import { initDi } from './di';
 import { logger } from '../utils/logger';
@@ -28,8 +27,6 @@ export const onError = port => (error: NodeJS.ErrnoException) => {
 };
 
 export const initServer = async () => {
-    await initDatabaseConnection();
-
     const container = await initDi();
 
     useContainer(container);
